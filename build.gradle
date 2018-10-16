@@ -1,0 +1,37 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'app/config/gradle/versioning.gradle'
+apply from: 'app/config/gradle/dependencies.gradle'
+
+buildscript {
+    // 加上这个，可以查看到versioning.gradle定义的数据
+    apply from: 'app/config/gradle/versioning.gradle'
+    ext.kotlin_version = '1.2.50'
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+
+        classpath "com.jakewharton:butterknife-gradle-plugin:$versions.butterknife"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,124 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v13'
+    }
+
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+    // MAIN DEPENDENCIES ***********************************************************************************************
+    implementation projectDependencies.supportLibsAppCompat
+    implementation projectDependencies.supportLibsAnnotations
+    implementation projectDependencies.supportLibsRecyclerview
+    implementation projectDependencies.supportLibsConstraintLayout
+    implementation projectDependencies.supportLibsMultiDex
+
+
+    annotationProcessor projectDependencies.daggerAnnotationProcessor
+    implementation projectDependencies.dagger
+    implementation projectDependencies.daggerAndroid
+    annotationProcessor projectDependencies.daggerAndroidAnnotationProcessor
+
+
+    // @Nonnull / @Nullable annotations
+    implementation projectDependencies.nullabilityAnnotations
+    androidTestImplementation projectDependencies.nullabilityAnnotations //fixes version conflict
+//    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+    // MVP library
+    implementation projectDependencies.timber
+    implementation projectDependencies.mosbyMvp
+    implementation projectDependencies.mosbyViewState
+    implementation projectDependencies.mosbyNullPresenter
+
+    implementation projectDependencies.retrofit
+    implementation projectDependencies.retrofitGson
+    implementation projectDependencies.okhttpLoggingInterceptor
+    implementation projectDependencies.retrofitRxJava2Adapter
+    implementation projectDependencies.rxAndroid
+    implementation projectDependencies.rxJava2
+
+    implementation projectDependencies.glideImageLoading
+
+    implementation projectDependencies.butterknife
+    annotationProcessor projectDependencies.butterknifeAnnotationProcessor
+
+    implementation projectDependencies.jodaTimeDanLew
+
+    //权限请求
+    implementation projectDependencies.permissionsDispatcher
+    annotationProcessor projectDependencies.permissionsDispatcherAnnotationProcessor
+
+    //Eventbus
+    implementation "org.greenrobot:eventbus:3.1.1"
+
+
+
+    //    // Support libraries
+    //    compile "com.android.support:design:$versions.supportLibrariesVersion"
+    //    compile "com.android.support:support-v4:$versions.supportLibrariesVersion"
+    //    compile "com.android.support:cardview-v7:$versions.supportLibrariesVersion"
+
+    ////    compile project(':pictureselector_lib')//图片选择库
+    //    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.6'
+
+    //    //recycleview通用适配器
+    //    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+
+    //    //recyclerview常用进入/退出/增加/删除动画
+    //    compile 'jp.wasabeef:recyclerview-animators:2.2.4'
+
+    //    // TinyPinyin核心包 常用汉字转拼音，约80KB
+    //    compile 'com.github.promeg:tinypinyin:2.0.3'
+
+    //    //sqlite,greendao
+    //    compile 'org.greenrobot:greendao:3.2.0'
+
+
+
+    //    // Auto value for generating immutable objects.
+    //    provided "com.google.auto.value:auto-value:$versions.autoValueVersion"
+    //    annotationProcessor "com.google.auto.value:auto-value:$versions.autoValueVersion"
+
+    //    // Image loading//图片加载
+    //    compile "com.github.bumptech.glide:glide:$versions.glideVersion"
+    //    annotationProcessor "com.github.bumptech.glide:compiler:$versions.glideVersion"
+
+}
