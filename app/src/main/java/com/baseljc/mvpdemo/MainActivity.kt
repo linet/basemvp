@@ -70,6 +70,14 @@ class MainActivity : BaseActivity<MainComponent, MainView, MainPresenter, BaseVi
 //
 //        }
 
+        webview.setOnKeyListener { view, keyCode, keyEvent ->
+            if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
+                webview.goBack()
+                true
+            }
+            false
+        }
+
         ib_scan.setOnClickListener {
 
             //Start the qr scan activity
@@ -94,13 +102,28 @@ class MainActivity : BaseActivity<MainComponent, MainView, MainPresenter, BaseVi
     }
 
 
+    override fun onBackPressed() {
+
+//        if (webview.canGoBack()) {
+            webview.goBack()
+//        } else {
+//            super.onBackPressed()
+//        }
+    }
+
     fun reloadWebView(url: String) {
 
         if (!TextUtils.isEmpty(url)) {
+
+            var length = url.length
+            et_input.setSelection(length)
+
             webview.loadUrl(url)
         }
 
     }
+
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -128,7 +151,7 @@ class MainActivity : BaseActivity<MainComponent, MainView, MainPresenter, BaseVi
             //Getting the passed result
             val result = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult")
             Log.d(LOGTAG, "Have scan result in your app activity :$result")
-
+            et_input.setText(result)
             reloadWebView(result)
 //            val alertDialog = AlertDialog.Builder(this@MainActivity).create()
 //            alertDialog.setTitle("Scan result")
